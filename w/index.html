@@ -5,9 +5,10 @@
     <x-blog>
       <h2>display:<br />like-the-iphone-headers</h2>
       <p>
-        Okay so you may have heard about css layout. or maybe you are normal.
-        Idk. its a new absurdly complex api to lay out css boxes yourself
-        instead of using the browsers layout engine.
+        Okay so you may have heard about
+        <a href="https://ishoudinireadyyet.com/">css layout</a>. or maybe you
+        are normal. Idk. its a new absurdly complex api to lay out css boxes
+        yourself instead of using the browsers layout engine.
       </p>
       <p>
         The big idea is that for layouts that are _not_ supported by CSS you can
@@ -60,17 +61,36 @@
     <x-blog>
       <p>
         Try resizing your window and see how this thing wraps! If you need a
-        visual aid I've made this button for you
+        visual aid I've made this button for you:
       </p>
       <p>
         <button id="clicky">Show me some boxes so i know whats going on</button>
       </p>
+      <p>
+        Oh yeah if it's all broken you are gonna need to enable the experimental
+        apis, go back to the first link i gave you and actually read that. You
+        should be seeing this:
+      </p>
+      <img src="./edge.png" alt="like a flexbox" />
       <p>
         What's really cool is that if you inspect the code for this page - well
         first of all it's a mess and i'm sorry, but second of all, all the
         actual layout has to do in the CSS end is use
         <code>display: layout(like-the-iphone-headers)</code> and some funky js
         takes over from there.
+        <a
+          href="https://github.com/walaura/display-like-iphone-headers/blob/main/w/layoutworklet.js"
+        >
+          Check it out here! </a
+        >.
+      </p>
+      <p>
+        Anyway it's awful naive code but I hope this inspires you to find uses
+        for this API! It's really nifty and a step up over laying absolute
+        boxes. And its fun idk.
+        <a href="https://twitter.com/freezydorito"
+          >Talk to me about it on Twitter</a
+        >.
       </p>
     </x-blog>
   </main>
@@ -113,7 +133,7 @@
     box-shadow: 0 0 0 2px rgb(41, 32, 59);
   }
   x-demo {
-    margin: 4em auto;
+    margin: 4em 10em;
     display: block;
   }
   x-blog {
@@ -140,18 +160,18 @@
     display: block;
   }
   x-blog code {
-    background-color: #fff;
-    color: #000;
+    background-color: hsla(0, 0%, 0%, 0.4);
     padding: 0.25em 0.5em;
     white-space: nowrap;
   }
   x-blog a {
-    color: currentColor;
+    color: rgb(106, 255, 218);
   }
   body {
     background-color: rgb(41, 32, 59);
     color: #fff;
     border-top: 1em solid rgb(30, 23, 44);
+    border-bottom: 2em solid rgb(30, 23, 44);
     margin: 0;
   }
   main {
