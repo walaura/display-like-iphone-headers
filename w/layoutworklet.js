@@ -1,55 +1,69 @@
 registerLayout(
-  "center",
+  "like-the-iphone-headers",
   class {
     async layout(children, edges, constraints, props) {
-      /* width */
+      /* this is the parents width/height */
       const maxAvailableInlineSize = constraints.fixedInlineSize;
-      /* height */
       const maxAvailableBlockSize = constraints.fixedBlockSize;
 
+      /* and how much the stuff on the sides take */
       const bounds = {
         start: 0,
         end: 0,
       };
 
       const middleAt = Math.floor(children.length / 2);
-      let start = children.slice(0, middleAt);
-      let middle = children[middleAt];
-      let end = children.slice(middleAt + 1);
-      let endBlocks = [];
-      let startBlocks = [];
+      const start = children.slice(0, middleAt);
+      const middle = children[middleAt];
+      const end = children.slice(middleAt + 1);
+
+      const blocks = {
+        end: [],
+        start: [],
+        middle: undefined,
+      };
 
       /* end first */
       for (let child of end) {
         child = await child.layoutNextFragment({
           availableInlineSize: maxAvailableInlineSize,
         });
-        child.inlineOffset = maxAvailableInlineSize - child.inlineSize;
+        child.inlineOffset =
+          maxAvailableInlineSize - child.inlineSize - bounds.end;
         bounds.end += child.inlineSize;
-        endBlocks.push(child);
+        blocks.end.push(child);
       }
       /* and start */
       for (let child of start) {
         child = await child.layoutNextFragment({
           availableInlineSize: maxAvailableInlineSize,
         });
-        child.inlineOffset = 0;
+        child.inlineOffset = 0 + bounds.start;
         bounds.start += child.inlineSize;
-        startBlocks.push(child);
+        blocks.start.push(child);
       }
 
       /* middle stuff */
-      middle = await middle.layoutNextFragment({
+      blocks.middle = await middle.layoutNextFragment({
         availableInlineSize: maxAvailableInlineSize - bounds.start - bounds.end,
       });
 
       const centeredInlineOffset =
-        maxAvailableInlineSize / 2 - middle.inlineSize / 2;
+        maxAvailableInlineSize / 2 - blocks.middle.inlineSize / 2;
       const inlineOffset = Math.max(bounds.start, centeredInlineOffset);
-      middle.inlineOffset = inlineOffset;
 
-      /* center it all */
-      const childFragments = [...startBlocks, middle, ...endBlocks];
+      const pushItFromTheRightByPx = Math.min(
+        0,
+        maxAvailableInlineSize -
+          bounds.end -
+          (inlineOffset + blocks.middle.inlineSize)
+      );
+
+      blocks.middle.inlineOffset = inlineOffset + pushItFromTheRightByPx;
+
+      const childFragments = [...blocks.start, blocks.middle, ...blocks.end];
+
+      /* vertically center it all */
       for (let child of childFragments) {
         child.blockOffset = maxAvailableBlockSize / 2 - child.blockSize / 2;
       }

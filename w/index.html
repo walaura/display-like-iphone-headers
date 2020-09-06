@@ -1,88 +1,186 @@
 <!DOCTYPE html>
 <meta charset="utf-8" />
-<body bgcolor="lightgrey">
+<body>
   <main>
-    <marquee>
-      <font color="red" face="comic sans ms">
-        <h1>Welcome to my jesse eisenberg fansite</h1>
-      </font>
-    </marquee>
-    <hr />
-    <p>
-      hey! make you sure you are using the latest chrome or edge and enable all
-      the experimental web platform features in chrome://flags.
-      <br />
-      <small
-        >(enable-experimental-web-platform-features, enable-javascript-harmony
-        should do it)</small
-      >
-    </p>
-    <hr />
-    <nav>
-      <ul>
-        <li>
-          <a href="/animation">/animation</a>
-        </li>
-        <li>
-          <a href="/animation-multi">/animation-multi</a>
-        </li>
-        <li>
-          <a href="/donut">/donut</a>
-        </li>
-        <li>
-          <a href="/fluent">/fluent</a>
-        </li>
-        <li>
-          <a href="/layout">/layout</a>
-        </li>
-        <li>
-          <a href="/layout-gap">/layout-gap</a>
-        </li>
-      </ul>
-    </nav>
-    <hr />
-    <nav>
-      <ul>
-        <li>
-          <a href="https://github.com/walaura/houdini-playground"
-            >check out the code</a
-          >
-        </li>
-      </ul>
-    </nav>
+    <x-blog>
+      <h2>display:<br />like-the-iphone-headers</h2>
+      <p>
+        Okay so you may have heard about css layout. or maybe you are normal.
+        Idk. its a new absurdly complex api to lay out css boxes yourself
+        instead of using the browsers layout engine.
+      </p>
+      <p>
+        The big idea is that for layouts that are _not_ supported by CSS you can
+        use this instead of positioning absolute boxes with javascript and it's
+        more performant because you are going through all this hellish
+        indirection. pretty cool!
+      </p>
+      <p>
+        Now just to go all recipe website on you, something i do this 2020 to
+        comfort myself at night instead of crying alone into my pillow (i cant
+        actually cry its a whole big unrelated deal) is watch youtubes, just
+        listen to the soothing voice of ppl sppedrun videogames or repair
+        electronics or make cakes or whatever. <br />
+        This is unimportant, but something that IS important is youtube itself,
+        look at this:
+      </p>
+      <img src="./youtube.png" alt="its youtube you know how youtube looks" />
+      <p>
+        The search bar is somewhat center aligned except it's NOT. Compare it to
+        the address bar in safari which is aligned. Presumably they are using a
+        flexbox layout and letting the search bar fall on the middle and the
+        stuff on either side is roughly the same width and honestly? it's good
+        enough. <br />
+        Do this in production. But we aren't here for production code, we are
+        here for the experimental stuff!
+      </p>
+    </x-blog>
+    <x-demo>
+      <div class="layout">
+        <div><x-icon>👈</x-icon> Back</div>
+        <h2>Page title on the middle</h2>
+        <div></div>
+      </div>
+      <div class="layout">
+        <div><x-icon>👋</x-icon></div>
+        <h2>Hey</h2>
+        <div>Sign In</div>
+      </div>
+      <div class="layout">
+        <div>logo</div>
+        <h2>Long-ass tools</h2>
+        <div>
+          <x-icon>🧼</x-icon>
+          <x-icon>🤡</x-icon>
+          <x-icon>🔔</x-icon>
+          <x-icon>👁</x-icon>
+        </div>
+      </div>
+    </x-demo>
+    <x-blog>
+      <p>
+        Try resizing your window and see how this thing wraps! If you need a
+        visual aid I've made this button for you
+      </p>
+      <p>
+        <button id="clicky">Show me some boxes so i know whats going on</button>
+      </p>
+      <p>
+        What's really cool is that if you inspect the code for this page - well
+        first of all it's a mess and i'm sorry, but second of all, all the
+        actual layout has to do in the CSS end is use
+        <code>display: layout(like-the-iphone-headers)</code> and some funky js
+        takes over from there.
+      </p>
+    </x-blog>
   </main>
-
-  <style>
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    main {
-      padding: 1em;
-      max-width: 40em;
-      margin: auto;
-    }
-    ul {
-      display: grid;
-      gap: 0.5em;
-    }
-    p,
-    ul {
-      margin: 1em 0;
-    }
-    li a {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1em;
-      font-family: "comic sans ms";
-      background: #fff;
-      border: 2px #666 outset;
-    }
-    li a:after {
-      content: "👉";
-      text-decoration: none;
-    }
-  </style>
 </body>
+<script>
+  CSS.layoutWorklet.addModule("layoutworklet.js");
+  window.clicky.onclick = () => {
+    if (document.documentElement.dataset.boxes) {
+      delete document.documentElement.dataset.boxes;
+      window.clicky.innerText = "Wait bring em back";
+    } else {
+      document.documentElement.dataset.boxes = true;
+      window.clicky.innerText = "Okay im done with the boxes";
+    }
+  };
+</script>
+<link
+  href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Lora:ital,wght@0,400;0,600;1,400&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  :root {
+    --default-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  }
+  .layout {
+    display: layout(like-the-iphone-headers);
+    height: 4em;
+    margin: 1em 0;
+    font-family: var(--default-font);
+    background: #fff;
+    color: #000;
+    border-radius: 0.25em;
+    box-shadow: 0 1em 1em hsla(202, 62%, 38%, 0.1);
+  }
+  .layout > * {
+    padding: 0.5em;
+  }
+  [data-boxes] .layout > * {
+    box-shadow: 0 0 0 2px rgb(41, 32, 59);
+  }
+  x-demo {
+    margin: 4em auto;
+    display: block;
+  }
+  x-blog {
+    font-family: "Lora", serif;
+    font-size: 1.15em;
+    max-width: 30em;
+    display: block;
+    margin: auto;
+    color: hsla(0, 100%, 100%, 0.9);
+  }
+  x-blog h2 {
+    font-family: "Bubblegum Sans", cursive;
+    font-size: 3em;
+    line-height: 1;
+    margin: 1em auto;
+    display: block;
+    color: rgb(106, 255, 218);
+    text-shadow: 0 0.05em 0 rgb(30, 23, 44);
+    transform: scale(1.5);
+  }
+  x-blog img {
+    margin: auto -3em;
+    width: calc(100% + 6em);
+    display: block;
+  }
+  x-blog code {
+    background-color: #fff;
+    color: #000;
+    padding: 0.25em 0.5em;
+    white-space: nowrap;
+  }
+  x-blog a {
+    color: currentColor;
+  }
+  body {
+    background-color: rgb(41, 32, 59);
+    color: #fff;
+    border-top: 1em solid rgb(30, 23, 44);
+    margin: 0;
+  }
+  main {
+    padding: 1em;
+  }
+  x-icon {
+    display: inline-flex;
+    width: 3em;
+    height: 2em;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transform: scale(1.33);
+  }
+  x-blog button {
+    background: rgb(106, 255, 218);
+    color: #000;
+    border: none;
+    padding: 1em 2em;
+    border-radius: 1000em;
+    text-align: center;
+    display: block;
+    margin: auto;
+    font-weight: 800;
+    font-family: var(--default-font);
+    cursor: pointer;
+  }
+  h2 {
+    font-size: 1.2em;
+    display: inline;
+  }
+</style>
