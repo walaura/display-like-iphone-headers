@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<body>
+  <div class="grad">
+    <button>1</button><button>2</button><button>3</button> <button>4</button
+    ><button>5</button><button>6</button> <button>7</button><button>8</button
+    ><button>9</button>
+  </div>
+</body>
+<script>
+  CSS.registerProperty({
+    name: "--bg",
+    syntax: "<color>",
+    inherits: true,
+    initialValue: "blue"
+  });
+  CSS.registerProperty({
+    name: "--stroke",
+    syntax: "<color>",
+    inherits: true,
+    initialValue: "red"
+  });
+
+  CSS.registerProperty({
+    name: "--dots",
+    syntax: "<color>",
+    inherits: true,
+    initialValue: "pink"
+  });
+
+  CSS.registerProperty({
+    name: "--radius",
+    syntax: "<number>",
+    inherits: false,
+    initialValue: 40
+  });
+
+  CSS.registerProperty({
+    name: "--cursor-x`",
+    syntax: "<number>",
+    inherits: false,
+    initialValue: 20
+  });
+
+  CSS.registerProperty({
+    name: "--cursor-y",
+    syntax: "<number>",
+    inherits: false,
+    initialValue: 20
+  });
+
+  document.querySelectorAll(".grad button").forEach(gr => {
+    window.addEventListener("mousemove", ev => {
+      let pos = gr.getBoundingClientRect();
+      gr.attributeStyleMap.set("--cursor-y", ev.clientY - pos.y);
+      gr.attributeStyleMap.set("--cursor-x", ev.clientX - pos.x);
+    });
+  });
+
+  CSS.paintWorklet.addModule("./paintworklet.js");
+</script>
+<style>
+  body {
+    background-size: cover;
+  }
+  .grad {
+    display: grid;
+    position: absolute;
+    margin: auto;
+    grid-template-columns: 1fr 1fr 1fr;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 10em;
+    width: 10em;
+  }
+  .grad > * {
+    margin: -1px;
+  }
+  .grad button {
+    border: 0;
+    background: #fff paint(bg);
+    --bg: #fafafa;
+    --radius: 60;
+  }
+</style>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<body bgcolor="lightgrey">
+  <main>
+    <marquee>
+      <font color="red" face="comic sans ms">
+        <h1>Welcome to my jesse eisenberg fansite</h1>
+      </font>
+    </marquee>
+    <hr />
+    <p>
+      hey! make you sure you are using the latest chrome or edge and enable all
+      the experimental web platform features in chrome://flags.
+      <br />
+      <small
+        >(enable-experimental-web-platform-features, enable-javascript-harmony
+        should do it)</small
+      >
+    </p>
+    <hr />
+    <nav>
+      <ul>
+        <li>
+          <a href="/animation">/animation</a>
+        </li>
+        <li>
+          <a href="/animation-multi">/animation-multi</a>
+        </li>
+        <li>
+          <a href="/donut">/donut</a>
+        </li>
+        <li>
+          <a href="/fluent">/fluent</a>
+        </li>
+        <li>
+          <a href="/layout">/layout</a>
+        </li>
+        <li>
+          <a href="/layout-gap">/layout-gap</a>
+        </li>
+      </ul>
+    </nav>
+    <hr />
+    <nav>
+      <ul>
+        <li>
+          <a href="https://github.com/walaura/houdini-playground"
+            >check out the code</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </main>
+
+  <style>
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    main {
+      padding: 1em;
+      max-width: 40em;
+      margin: auto;
+    }
+    ul {
+      display: grid;
+      gap: 0.5em;
+    }
+    p,
+    ul {
+      margin: 1em 0;
+    }
+    li a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1em;
+      font-family: "comic sans ms";
+      background: #fff;
+      border: 2px #666 outset;
+    }
+    li a:after {
+      content: "👉";
+      text-decoration: none;
+    }
+  </style>
+</body>

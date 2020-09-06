@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<body>
+  <main>
+    <div class="layout">
+      <h2>Zombieland 2</h2>
+      <small>2019</small>
+      <small>⭐️⭐️⭐️⭐️⚫️</small>
+    </div>
+    <img src="poster.jpg" />
+  </main>
+</body>
+<script>
+  CSS.layoutWorklet.addModule("layoutworklet.js");
+</script>
+<style type="disabled">
+  .layout {
+    display: layout(center);
+  }
+</style>
+<style>
+  * {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  }
+  body {
+    background: #eee;
+  }
+  main {
+    height: 30em;
+    width: 20em;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    margin: auto;
+    display: grid;
+    grid-template-rows: 0.5fr 1fr;
+    grid-template-columns: 1fr;
+    grid-gap: 1em;
+    justify-content: stretch;
+    align-content: stretch;
+  }
+  main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  main > * {
+    background: #fff;
+    border-radius: 0.25em;
+    box-shadow: 0 1em 1em hsla(202, 62%, 38%, 0.1);
+  }
+</style>
